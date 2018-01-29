@@ -1,0 +1,19 @@
+{
+  "name": "gmail-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "base-64": "^0.1.0",
+    "google-auth-library": "^0.9.10",
+    "googleapis": "^25.0.0",
+    "underscore": "^1.8.3",
+    "utf8": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
