@@ -13,17 +13,38 @@ var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
     process.env.USERPROFILE) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'gmail-nodejs-quickstart.json';
 
-// Load client secrets from a local file.
-fs.readFile('client_secret.json', function processClientSecrets(err, content) {
-  if (err) {
-    console.log('Error loading client secret file: ' + err);
-    return;
-  }
-  // Authorize a client with the loaded credentials, then call the
-  // Gmail API.
-  // authorize(JSON.parse(content), listLabels);
-  authorize(JSON.parse(content), listMessages);
-});
+
+if(process.env.NODE_ENV === 'production') {
+  var clientSecret = process.env.CLIENT_SECRET
+  var clientId = process.env.CLIENT_ID
+  var redirectUrl = process.env.REDIRECT_URL
+  var auth = new googleAuth();
+  var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
+  var token = JSON.parse(process.env.TOKEN)
+  // var token = {
+  //   credentials: {
+  //     access_token: process.env.ACCESS_TOKEN,
+  //     refresh_token: process.env.REFRESH_TOKEN,
+  //     token_type: process.env.TOKEN_TYPE || 'Bearer',
+  //     expiry_date: process.env.EXPIRY_DATE
+  //   }
+  // }
+  oauth2Client.credentials = token
+  listMessages(oauth2Client)
+} else {
+  // Load client secrets from a local file.
+  fs.readFile('client_secret.json', function processClientSecrets(err, content) {
+    if (err) {
+      console.log('Error loading client secret file: ' + err);
+      return;
+    }
+    // Authorize a client with the loaded credentials, then call the
+    // Gmail API.
+    // authorize(JSON.parse(content), listLabels);
+    authorize(JSON.parse(content), listMessages);
+  });
+}
+
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
