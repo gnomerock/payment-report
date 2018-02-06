@@ -67,6 +67,8 @@ class BPDParser {
 
   getReadableData() {
     let data = this.getData()
+
+    return data
   }
 
 }

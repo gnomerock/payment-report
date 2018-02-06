@@ -187,13 +187,15 @@ function listMessages(auth) {
               // if .BPD file , parse it first
               var bpd = new BPDParser(attachment.data)
               // callback(bpd.getRawData())
-              callback(bpd.getData())
+              callback(bpd.getReadableData())
             } else if (true) {
               // TODO if csv parse csv object
-              callback('csv')
+              // callback('csv')
+              callback(null)
             } else {
               //else show raw data
-              callback(base64.decode(attachment.data))
+              // callback(base64.decode(attachment.data))
+              callback(null)
             }
           })
         }
