@@ -142,6 +142,7 @@ function listMessages(auth) {
       }, function(err, response) {
         let message = response
         getAttachments(auth, message, function(data) {
+          //NOTE: Final data here
           console.log(data);
         })
       })
